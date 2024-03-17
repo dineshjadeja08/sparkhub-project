@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Channels</title>
+    <!-- Add any CSS styles here -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1, h2, p {
+            margin: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>YouTube Channel Details</h1>
+
+    {% if channel_data %}
+        <h2>Channel Title: {{ channel_data.snippet.title }}</h2>
+        <p>Description: {{ channel_data.snippet.description }}</p>
+        <p>Published At: {{ channel_data.snippet.publishedAt }}</p>
+        <p>Country: {{ channel_data.snippet.country }}</p>
+        <p>Total Videos: {{ channel_data.statistics.videoCount }}</p>
+        <p>Total Subscribers: {{ channel_data.statistics.subscriberCount }}</p>
+        <p>Total Views: {{ channel_data.statistics.viewCount }}</p>
+        <!-- Add more channel details as needed -->
+    {% else %}
+        <p class="no-data">No channel data available.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

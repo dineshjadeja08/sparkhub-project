@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkHub - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7; /* Light gray background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 40px;
+            background-color: #fff; /* White container background */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Take up remaining vertical space */
+        }
+
+        header {
+            background-color: #2c3e50; /* Dark blue header background */
+            color: #fff; /* White header text */
+            padding: 20px 0;
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #34495e; /* Dark blue footer background */
+            color: #fff; /* White footer text */
+            padding: 20px 0;
+            text-align: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin-bottom: 0;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .role-buttons {
+            text-align: center;
+        }
+
+        .role-buttons .btn {
+            width: 200px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background-color: #3498db; /* Blue button background */
+            border-color: #3498db; /* Blue button border */
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            border-color: #2980b9; /* Darker blue border on hover */
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6; /* Gray button background */
+            border-color: #95a5a6; /* Gray button border */
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d; /* Darker gray on hover */
+            border-color: #7f8c8d; /* Darker gray border on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to SparkHub</h1>
+            <p>Empowering influencers and brands to collaborate and thrive together.</p>
+        </div>
+    </header>
+    <div class="container login-container">
+        <h2 class="login-title">Login</h2>
+        <div class="role-buttons">
+            <a href="/login?type=influencer" class="btn btn-primary">Influencer Login</a>
+            <a href="/login?type=brand" class="btn btn-secondary">Brand Login</a>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SparkHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

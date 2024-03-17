@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Home Page</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Google API Client Library -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #343a40;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        .welcome-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .influencer-content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .influencer-content h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .brand-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .brand-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-item:hover {
+            transform: scale(1.02);
+        }
+
+        .brand-details {
+            flex-grow: 1;
+        }
+
+        .brand-details h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .brand-details p {
+            color: #555;
+            margin: 0;
+        }
+
+        .contact-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-button:hover {
+            background-color: #218838;
+        }
+
+        .filter-section {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .filter-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            margin-right: 10px;
+            color: #555;
+        }
+
+        .filter-input {
+            width: 150px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .filter-select {
+            width: 150px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .filter-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-button:hover {
+            background-color: #218838;
+        }
+
+        /* Add Channel Section */
+        .add-channel-section {
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .add-channel-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-channel-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Channel List Section */
+        .channel-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .channel-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .channel-details {
+            flex-grow: 1;
+        }
+
+        .channel-details h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .channel-details p {
+            color: #555;
+            margin: 0;
+        }
+
+        .show-analytics-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .show-analytics-button:hover {
+            background-color: #218838;
+        }
+        .google-oauth-button {
+            display: inline-block;
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none; /* Remove underline */
+            font-weight: bold;
+            cursor: pointer;
+            border: none; /* Remove border */
+            outline: none; /* Remove outline */
+        }
+
+        /* Hover effect */
+        .google-oauth-button:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SparkHub</h1>
+</header>
+
+<nav>
+    <a href="/login">Home</a>
+    <a href="/profile">Profile</a>
+    <a href="/campaigns">Campaigns</a>
+    <a href="/login">Logout</a>
+</nav>
+
+<div class="welcome-section">
+    <h2>Welcome, {{ session['username'] }}!</h2>
+    <p>Explore and collaborate with various brands.</p>
+</div>
+<div class="add-channel-section">
+    <button onclick="openGoogleOAuthPopup()" class="google-oauth-button">Sign in with Google</button>
+</div>
+<div class="influencer-content">
+    <h2>Your Brand Collaborations</h2>
+    <p> Content example </p>
+</div>
+
+<div class="filter-section">
+    <h2>Filter Brands</h2>
+    <label class="filter-label">Category:</label>
+    <select class="filter-select" id="brandCategory">
+        <option value="all">All Categories</option>
+        <option value="fashion">Fashion</option>
+        <option value="beauty">Beauty</option>
+        <!-- Add more categories as needed -->
+    </select>
+    <label class="filter-label">Minimum Subscribers:</label>
+    <input type="number" class="filter-input" id="minSubscribers" min="0">
+    <label class="filter-label">Niche:</label>
+    <input type="text" class="filter-input" id="brandNiche">
+    <button class="filter-button" onclick="applyFilters()">Apply Filters</button>
+</div>
+
+<div id="analytics-data">
+    <!-- Analytics data will be displayed here -->
+</div>
+
+<div class="influencer-content">
+    <h2>Added Channels</h2>
+    <ul class="channel-list" id="channelList">
+        <!-- Added channels will be displayed here -->
+    </ul>
+</div>
+
+<!-- Google Analytics API Script -->
+<script>
+    function openGoogleSignInPopup() {
+        gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        getUserChannels(googleUser);
+    }
+
+    function onFailure(error) {
+        console.error('Error signing in:', error);
+    }
+
+    function renderGoogleSignInButton() {
+        gapi.signin2.render('googleSignInButton', {
+            'scope': 'profile email',
+            'width': 200,
+            'height': 40,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+        });
+    }
+
+    // Initialize Google Sign-In
+    window.onload = function () {
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: '1011917550414-5e68pkg13demndm9uj0bc7d3rs7htqe8.apps.googleusercontent.com'
+            }).then(function () {
+                renderGoogleSignInButton();
+            });
+        });
+    };
+
+    function getUserChannels(googleUser) {
+        // Retrieve user's channels using the YouTube Data API
+        gapi.client.init({
+            'apiKey': 'AIzaSyAKq-t6NGPsPPhUt5jfS-pLKBwR4b8Xzdo'
+        }).then(function () {
+            return gapi.client.request({
+                'path': 'https://www.googleapis.com/youtube/v3/channels',
+                'params': {
+                    'part': 'snippet,contentDetails,statistics',
+                    'mine': true
+                }
+            });
+        }).then(function (response) {
+            console.log('User channels retrieved:', response.result);
+            // Process the response and display channels
+        }, function (error) {
+            console.error('Error fetching user channels:', error);
+        });
+    }
+
+    function applyFilters() {
+        // Implement filter functionality
+        console.log('Filters applied.');
+    }
+    function openGoogleSignInPopup() {
+        gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        // Call function to retrieve user channels here
+    }
+
+    function onFailure(error) {
+        console.error('Error signing in:', error);
+    }
+
+    function renderGoogleSignInButton() {
+        gapi.signin2.render('googleSignInButton', {
+            'scope': 'profile email',
+            'width': 200,
+            'height': 40,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+        });
+    }
+
+    // Initialize Google Sign-In
+    window.onload = function () {
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: '1011917550414-5e68pkg13demndm9uj0bc7d3rs7htqe8.apps.googleusercontent.com'
+            }).then(function () {
+                renderGoogleSignInButton();
+            });
+        });
+    };
+    function openGoogleOAuthPopup() {
+        var url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&include_granted_scopes=true&response_type=token&state=state_parameter_passthrough_value&redirect_uri=http://localhost:5000/influencer_channels&client_id=1011917550414-5e68pkg13demndm9uj0bc7d3rs7htqe8.apps.googleusercontent.com';
+        var width = 600;
+        var height = 600;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        var options = 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left;
+        var authPopup = window.open(url, 'GoogleOAuthPopup', options);
+
+        // Check for sign-in status every second
+        var timer = setInterval(function() {
+            if (authPopup.closed) {
+                clearInterval(timer);
+                // Fetch and display channel details
+                fetchChannelDetails();
+            }
+        }, 1000);
+    }
+
+    function fetchChannelDetails() {
+        // Fetch channel details using Google API
+        gapi.client.init({
+            'apiKey': 'AIzaSyAKq-t6NGPsPPhUt5jfS-pLKBwR4b8Xzdo'
+        }).then(function () {
+            return gapi.client.request({
+                'path': 'https://www.googleapis.com/youtube/v3/channels',
+                'params': {
+                    'part': 'snippet,contentDetails,statistics',
+                    'mine': true
+                }
+            });
+        }).then(function (response) {
+            // Process the response and display channel details
+            var channelData = response.result;
+            displayChannelDetails(channelData);
+        }).catch(function (error) {
+            console.error('Error fetching channel details:', error);
+        });
+    }
+
+    function displayChannelDetails(channelData) {
+        // Display channel details in the page
+        var channelDetailsSection = document.getElementById('channelDetailsSection');
+        if (channelData && channelData.items && channelData.items.length > 0) {
+            var channel = channelData.items[0]; // Assuming only one channel is retrieved
+            var channelId = channel.id;
+            var channelTitle = channel.snippet.title;
+            // Add more channel details as needed
+
+            // Construct HTML to display channel details
+            var html = '<h2>Your Channel Details</h2>' +
+                       '<p>Channel ID: ' + channelId + '</p>' +
+                       '<p>Channel Title: ' + channelTitle + '</p>';
+            // Add more HTML for additional channel details
+
+            // Update the channel details section with the HTML
+            channelDetailsSection.innerHTML = html;
+        } else {
+            // Display a message if no channel details are available
+            channelDetailsSection.innerHTML = '<p>No channel details available</p>';
+        }
+    }
+    // Assuming you have the JSON data stored in a variable named 'analyticsData'
+    var analyticsData = {
+        "kind": "youtubeAnalytics#resultTable",
+        "columnHeaders": [
+            {
+                "name": "day",
+                "columnType": "DIMENSION",
+                "dataType": "STRING"
+            },
+            {
+                "name": "views",
+                "columnType": "METRIC",
+                "dataType": "INTEGER"
+            },
+            {
+                "name": "estimatedMinutesWatched",
+                "columnType": "METRIC",
+                "dataType": "INTEGER"
+            },
+            {
+                "name": "averageViewDuration",
+                "columnType": "METRIC",
+                "dataType": "INTEGER"
+            },
+            {
+                "name": "averageViewPercentage",
+                "columnType": "METRIC",
+                "dataType": "FLOAT"
+            },
+            {
+                "name": "subscribersGained",
+                "columnType": "METRIC",
+                "dataType": "INTEGER"
+            }
+        ],
+        "rows": [
+            ["2020-10-01", 445, 1068, 144, 38.78, 3, 4],
+            ["2020-10-02", 406, 905, 133, 34.94, 2],
+            ["2020-10-03", 466, 1042, 134, 34.77, 6],
+            ["2020-10-04", 427, 1006, 141, 36.48, 3],
+            ["2020-10-05", 379, 964, 152, 39.48, 2]
+        ]
+    };
+
+    // Function to display analytics data on the web page
+    function displayAnalyticsData(data) {
+        var container = document.getElementById('analytics-data');
+
+        // Create a table element
+        var table = document.createElement('table');
+        table.classList.add('table'); // Add Bootstrap table class if needed
+
+        // Create table header row
+        var headerRow = document.createElement('tr');
+        data.columnHeaders.forEach(function(header) {
+            var th = document.createElement('th');
+            th.textContent = header.name;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // Create table rows for data
+        data.rows.forEach(function(rowData) {
+            var row = document.createElement('tr');
+            rowData.forEach(function(cellData) {
+                var cell = document.createElement('td');
+                cell.textContent = cellData;
+                row.appendChild(cell);
+            });
+            table.appendChild(row);
+        });
+
+        // Append the table to the container
+        container.appendChild(table);
+    }
+
+    // Call the function to display analytics data
+    displayAnalyticsData(analyticsData);
+     // Function to fetch and display analytics data
+     function displayAnalyticsData() {
+        // Make an AJAX request to fetch analytics data from the server
+        fetch('/get_analytics_data')
+            .then(response => response.json())
+            .then(data => {
+                // Display the analytics data in the container
+                var container = document.getElementById('analytics-data');
+                container.innerHTML = ''; // Clear previous data
+                // Generate HTML structure to display analytics data (from the provided JSON format)
+                var html = '<table>';
+                html += '<tr><th>Day</th><th>Views</th><th>Estimated Minutes Watched</th><th>Average View Duration</th><th>Average View Percentage</th><th>Subscribers Gained</th></tr>';
+                data.rows.forEach(row => {
+                    html += '<tr>';
+                    row.forEach(cell => {
+                        html += '<td>' + cell + '</td>';
+                    });
+                    html += '</tr>';
+                });
+                html += '</table>';
+                container.innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching analytics data:', error));
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        displayAnalyticsData(); // Display analytics data on page load
+    };
+</script>
+
+</body>
+</html>
